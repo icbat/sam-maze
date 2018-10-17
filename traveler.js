@@ -1,7 +1,6 @@
 const travel = (graphDef, x, y) => {
   const graph = parseGraph(graphDef)
-  // return shortestPath
-  console.log(graph);
+  return shortestPath(graph, x, y)
 }
 
 const parseGraph = graphDef => {
@@ -22,7 +21,12 @@ const parseGraph = graphDef => {
         break;
     }
   }
+
   return outer;
+}
+
+const shortestPath = (graph, startX, startY) {
+  return null
 }
 
 module.exports = travel;
