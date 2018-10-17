@@ -1,6 +1,6 @@
 const travel = (graphDef, x, y) => {
-  const graph = parseGraph(graphDef)
-  return shortestPath(graph, x, y)
+  const graph = parseGraph(graphDef.trim())
+  return shortestPath(graph, x, y);
 }
 
 const parseGraph = graphDef => {
@@ -25,8 +25,27 @@ const parseGraph = graphDef => {
   return outer;
 }
 
-const shortestPath = (graph, startX, startY) {
-  return null
+const shortestPath = (graph, startX, startY) => {
+  let x = startX
+  let y = startY
+  // Assume square as given
+  const n = graph.length
+
+  const steps = []
+
+  let current = graph[y][x]
+  while (x < n && y < n) {
+    // console.log(x, y, current, graph);
+    if (current !== 'X') {
+      steps.push(`(${x},${y}) ${current}`)
+    }
+    if (current === 'P') {
+      break;
+    }
+    current = graph[y][++x]
+  }
+
+  return steps.join('\n')
 }
 
 module.exports = travel;

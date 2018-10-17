@@ -9,8 +9,7 @@ test('sam example', t => {
     O O O O
     `
     const LX = 0, LY = 0
-    const expected = `
-    (0,0) L
+    const expected = `(0,0) L
     (0,1) O
     (0,2) O
     (0,3) O
@@ -19,23 +18,25 @@ test('sam example', t => {
     (3,3) O
     (3,2) O
     (3,1) O
-    (3,0) P
-    `
+    (3,0) P`
 
     const actual = traveler(graph, LX, LY)
 
     t.is(expected, actual, graph)
 })
 
-test('no solution', t => {
+test('ezpz - x', t => {
     const graph = `
-    L O X P
+    L O O P
     X X O O
     O O X O
     O O O O
     `
     const LX = 0, LY = 0
-    const expected = null
+    const expected = `(0,0) L
+(1,0) O
+(2,0) O
+(3,0) P`
 
     const actual = traveler(graph, LX, LY)
 
