@@ -1,0 +1,9 @@
+{
+  "name": "maze-sam",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "ava": "^0.25.0"
+  }
+}
