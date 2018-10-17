@@ -24,21 +24,21 @@ test('sam example', t => {
 
     t.is(expected, actual, graph)
 })
-
-test('ezpz - x', t => {
-    const graph = `
-    L O O P
-    X X O O
-    O O X O
-    O O O O
-    `
-    const LX = 0, LY = 0
-    const expected = `(0,0) L
-(1,0) O
-(2,0) O
-(3,0) P`
-
-    const actual = traveler(graph, LX, LY)
-
-    t.is(expected, actual, graph)
-})
+// 
+// test('ezpz - x', t => {
+//     const graph = `
+//     L O O P
+//     X X O O
+//     O O X O
+//     O O O O
+//     `
+//     const LX = 0, LY = 0
+//     const expected = `(0,0) L
+// (1,0) O
+// (2,0) O
+// (3,0) P`
+//
+//     const actual = traveler(graph, LX, LY)
+//
+//     t.is(expected, actual, graph)
+// })
