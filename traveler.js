@@ -27,23 +27,50 @@ const parseGraph = graphDef => {
 
 const graphToTree = (graph, startX, startY) => {
   const root = new Node(startX, startY, graph[startY][startX])
-  const visitedNodes = new Set()
-  visitedNodes.add(root.toString())
-  return DFS(root, visitedNodes, graph)
+  const visitedNodes = []
+  visitedNodes.push(root.toString())
+  return BFS(root, graph)
 }
 
-const DFS = (node, visitedNodes, graph) => {
-  for (const neighbor of getLegalNeighbors(node, graph)) {
-    visitedNodes.add(neighbor.toString())
-    console.log(visitedNodes);
-    if (neighbor.value === 'P') {
-      return visitedNodes
-    } else {
-      if (!visitedNodes.has(neighbor.toString())) {
-        return DFS(neighbor, visitedNodes, graph)
+const BFS = (root, graph) => {
+  const openNodes = []
+  const closedNodes = new Set()
+  const meta = new Map()
+
+  openNodes.push(root)
+  meta.set(root, [null, root.toString()])
+
+  while (openNodes.length > 0) {
+    const subRoot = openNodes.shift()
+    if (subRoot.value === 'P') {
+      return constructPath(subRoot, meta)
+    }
+    for (const neighbor of getLegalNeighbors(subRoot, graph)) {
+      if (closedNodes.has(neighbor.toString())) {
+        continue;
+      }
+      if (!openNodes.includes(neighbor)) {
+        meta.set(neighbor, [subRoot, neighbor.toString()])
+        openNodes.push(neighbor)
       }
     }
+    closedNodes.add(subRoot.toString())
   }
+}
+
+const constructPath = (endNode, meta) => {
+  const output = []
+
+  let node = endNode
+  while (meta.get(node)[0]) {
+    const [beforeNode, string] = meta.get(node)
+    output.push(string)
+    node = beforeNode
+  }
+  output.push(meta.get(node)[1])
+
+  return output.reverse().join('\n')
+
 }
 
 const getLegalNeighbors = (current, graph) => {
