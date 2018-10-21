@@ -1,6 +1,34 @@
 const test = require('ava');
 const {travel, parse} = require('../traveler');
 
+test.before(() => {
+  const input = `
+  L O X P
+  O X O O
+  O O X O
+  O O O O
+  `
+  const LX = 0, LY = 0
+  const expected = `(0,0) L
+(0,1) O
+(0,2) O
+(0,3) O
+(1,3) O
+(2,3) O
+(3,3) O
+(3,2) O
+(3,1) O
+(3,0) P`
+  const graph = parse(input)
+
+  console.time('warmup')
+  // Coerce v8 into optimizing for us
+  for (var i = 0; i < 10; i++) {
+    const actual = travel(graph, LX, LY)
+  }
+  console.timeEnd('warmup')
+})
+
 test('sam-example', t => {
     const input = `
     L O X P
@@ -22,13 +50,6 @@ test('sam-example', t => {
     console.time('parsing-sam-example')
     const graph = parse(input)
     console.timeEnd('parsing-sam-example')
-
-    console.time('warmup')
-    // Coerce v8 into optimizing for us
-    for (var i = 0; i < 10; i++) {
-      const actual = travel(graph, LX, LY)
-    }
-    console.timeEnd('warmup')
 
     console.time('sam-example')
     const actual = travel(graph, LX, LY)
