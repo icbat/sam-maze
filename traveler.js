@@ -36,20 +36,20 @@ const BFS = (root, graph) => {
   meta.set(root, [null, root.toString()])
 
   while (openNodes.length > 0) {
-    const subRoot = openNodes.shift()
-    if (subRoot.value === 'P') {
-      return constructOutput(subRoot, meta)
+    const currentNode = openNodes.shift()
+    if (currentNode.value === 'P') {
+      return constructOutput(currentNode, meta)
     }
-    for (const neighbor of getLegalNeighbors(subRoot, graph)) {
-      if (closedNodes.has(neighbor.toString())) {
+    for (const neighbor of getLegalNeighbors(currentNode, graph)) {
+      if (closedNodes.has(neighbor)) {
         continue;
       }
       if (!openNodes.includes(neighbor)) {
-        meta.set(neighbor, [subRoot, neighbor.toString()])
+        meta.set(neighbor, [currentNode, neighbor.toString()])
         openNodes.push(neighbor)
       }
     }
-    closedNodes.add(subRoot.toString())
+    closedNodes.add(currentNode)
   }
 }
 
