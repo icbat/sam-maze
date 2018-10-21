@@ -12,6 +12,7 @@ const parse = graphDef => {
       case 'X':
       outer[outer.length - 1].push(char)
       break;
+
       case '\n':
       outer.push([])
       break;
@@ -37,7 +38,7 @@ const BFS = (root, graph) => {
   while (openNodes.length > 0) {
     const subRoot = openNodes.shift()
     if (subRoot.value === 'P') {
-      return constructPath(subRoot, meta)
+      return constructOutput(subRoot, meta)
     }
     for (const neighbor of getLegalNeighbors(subRoot, graph)) {
       if (closedNodes.has(neighbor.toString())) {
@@ -52,7 +53,7 @@ const BFS = (root, graph) => {
   }
 }
 
-const constructPath = (endNode, meta) => {
+const constructOutput = (endNode, meta) => {
   const output = []
 
   let node = endNode
@@ -92,7 +93,6 @@ class Node {
     this.x = x
     this.y = y
     this.value = value
-    this.children = []
   }
 
   toString() {
