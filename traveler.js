@@ -1,9 +1,5 @@
-const travel = (graphDef, x, y) => {
-  const graph = parseGraph(graphDef.trim())
-  return graphToTree(graph, x, y)
-}
-
-const parseGraph = graphDef => {
+const parse = graphDef => {
+  graphDef = graphDef.trim()
   const outer = []
 
   outer.push([])
@@ -14,21 +10,19 @@ const parseGraph = graphDef => {
       case 'O':
       case 'P':
       case 'X':
-        outer[outer.length - 1].push(char)
-        break;
+      outer[outer.length - 1].push(char)
+      break;
       case '\n':
-        outer.push([])
-        break;
+      outer.push([])
+      break;
     }
   }
 
   return outer;
 }
 
-const graphToTree = (graph, startX, startY) => {
+const travel = (graph, startX, startY) => {
   const root = new Node(startX, startY, graph[startY][startX])
-  const visitedNodes = []
-  visitedNodes.push(root.toString())
   return BFS(root, graph)
 }
 
@@ -106,4 +100,4 @@ class Node {
   }
 }
 
-module.exports = travel;
+module.exports = {parse,travel};
